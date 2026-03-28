@@ -59,6 +59,14 @@ Test cases are written for **R2025b** (double-quoted `assessPattern` strings).
 - A Content Security Policy (`connect-src https://api.anthropic.com`) restricts all
   network calls to Anthropic's API only.
 
+## Cost
+
+API usage is very low. Generating and fully developing 4 problems (approx. 20 API calls)
+costs around **$0.05–$0.10** with Claude Sonnet 4.6. A **$5 spending limit** is more than
+enough for extensive use.
+
+Sign up, purchase credits, and create a key at [console.anthropic.com](https://console.anthropic.com).
+
 ---
 
 ## Deployment

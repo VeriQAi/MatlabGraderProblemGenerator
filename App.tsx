@@ -35,7 +35,7 @@ const App: React.FC = () => {
     setState(s => ({ ...s, stage: 'loading_options', options: [], selectedIds: [] }));
 
     try {
-      const prompt = buildOptionsPrompt(objective, problemType);
+      const prompt = buildOptionsPrompt(objective, problemType, state.numOptions);
       const raw = await callClaude(prompt, apiKey, model, msg => {
         // log silently during options loading — no log panel visible yet
         console.debug(msg);

@@ -50,6 +50,7 @@ export interface AppState {
   showApiKey: boolean;
   model: ModelId;
   objective: string;
+  numOptions: number;
   problemType: ProblemType;
   disclosureAccepted: boolean;
   // Stage 1
@@ -71,6 +72,7 @@ export const INITIAL_STATE: AppState = {
   showApiKey: false,
   model: 'claude-sonnet-4-6',
   objective: '',
+  numOptions: 4,
   problemType: 'Script',
   disclosureAccepted: false,
   options: [],

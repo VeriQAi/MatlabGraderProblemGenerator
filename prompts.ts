@@ -1,10 +1,10 @@
 import type { ProblemOption, ProblemType } from './types';
 import { toSnakeCase } from './api';
 
-export function buildOptionsPrompt(objective: string, problemType: ProblemType) {
+export function buildOptionsPrompt(objective: string, problemType: ProblemType, numOptions: number) {
   return {
     system: `You are an expert MATLAB educator. Given a learning objective and problem type, \
-propose 5 distinct MATLAB Grader problem options. Return ONLY a raw JSON array \
+propose ${numOptions} distinct MATLAB Grader problem options. Return ONLY a raw JSON array \
 with no markdown fences and no explanation.
 Each element must have exactly these fields:
 {
@@ -16,11 +16,11 @@ Each element must have exactly these fields:
   "suggested_variable": "varname",
   "problem_type": "Script|Function"
 }
-Vary difficulty: include at least one Easy, one Medium, and one Hard.
+Vary difficulty: spread Easy, Medium, and Hard across the options.
 For Function problems, suggested_variable should be the primary output argument name.
 All problems must be of the problem_type requested by the user.`,
-    user: `Learning objective: ${objective}\nProblem type: ${problemType}\nGenerate 5 problem options.`,
-    maxTokens: 1200,
+    user: `Learning objective: ${objective}\nProblem type: ${problemType}\nGenerate ${numOptions} problem options.`,
+    maxTokens: Math.max(1200, numOptions * 250),
   };
 }
 

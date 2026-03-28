@@ -32,7 +32,7 @@ const DISCLOSURE_TEXT = [
 
 const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) => {
   const {
-    apiKey, showApiKey, model, objective, problemType, disclosureAccepted,
+    apiKey, showApiKey, model, objective, numOptions, problemType, disclosureAccepted,
   } = state;
 
   const set = <K extends keyof AppState>(key: K, value: AppState[K]) =>
@@ -81,20 +81,27 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
         {/* Advisory */}
         <div className="flex items-start gap-2 bg-blue-50 border border-blue-200 rounded-md p-3 text-xs text-blue-800">
           <Info size={14} className="flex-shrink-0 mt-0.5 text-blue-500" />
-          <p>
-            Your API key is used only in this browser session. It is never stored, logged, or
-            transmitted except directly to <strong>api.anthropic.com</strong>.{' '}
-            <strong>Recommended:</strong> create a dedicated key with a spending limit at{' '}
-            <a
-              href="https://console.anthropic.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline"
-            >
-              console.anthropic.com
-            </a>{' '}
-            before use.
-          </p>
+          <div className="space-y-1.5">
+            <p>
+              Your API key is used only in this browser session. It is never stored, logged, or
+              transmitted except directly to <strong>api.anthropic.com</strong>.{' '}
+              Sign up, purchase API credits, and create a dedicated key with a spending limit at{' '}
+              <a
+                href="https://console.anthropic.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline font-medium"
+              >
+                console.anthropic.com
+              </a>.
+            </p>
+            <p className="text-blue-700">
+              <strong>💡 Typical cost:</strong> Generating and fully developing 4 problems
+              (approx. 20 API calls) costs around <strong>$0.05–$0.10</strong> with Claude
+              Sonnet 4.6. A <strong>$5 spending limit</strong> is more than enough for
+              extensive use.
+            </p>
+          </div>
         </div>
       </Card>
 
@@ -126,8 +133,8 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
         />
       </Card>
 
-      {/* Problem Type */}
-      <Card className="p-5">
+      {/* Problem Type + Number of Options */}
+      <Card className="p-5 space-y-4">
         <fieldset>
           <legend className="text-sm font-semibold text-gray-700 mb-3">
             MATLAB Grader Problem Type
@@ -149,6 +156,25 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
           </div>
           <p className="mt-2 text-xs text-gray-500">{ptHelp[problemType]}</p>
         </fieldset>
+
+        <div className="border-t border-gray-100 pt-4">
+          <SectionLabel>Number of Problem Options to Generate</SectionLabel>
+          <div className="flex items-center gap-3">
+            <input
+              type="number"
+              min={1}
+              max={10}
+              value={numOptions}
+              onChange={e => {
+                const v = Math.min(10, Math.max(1, parseInt(e.target.value) || 1));
+                set('numOptions', v);
+              }}
+              className="w-20 border border-gray-300 rounded-md px-3 py-2 text-sm text-center
+                         focus:outline-none focus:ring-2 focus:ring-brand-accent"
+            />
+            <span className="text-xs text-gray-500">options (1–10, default 4)</span>
+          </div>
+        </div>
       </Card>
 
       {/* Disclosure */}
@@ -196,7 +222,7 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
           onClick={onGenerate}
           disabled={!canGenerate}
         >
-          Generate 5 Problem Options →
+          Generate {numOptions} Problem Option{numOptions !== 1 ? 's' : ''} →
         </Button>
       </div>
     </div>
