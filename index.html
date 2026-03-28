@@ -5,23 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MATLAB Grader Problem Generator — VeriQAI</title>
 
-    <!--
-      Content Security Policy
-      connect-src restricted to api.anthropic.com only.
-      This prevents any injected JavaScript from exfiltrating the API key
-      to a third-party server.
-    -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="
-        default-src 'self';
-        script-src 'self' 'unsafe-inline';
-        style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-        connect-src 'self' https://api.anthropic.com;
-        img-src 'self' data:;
-        font-src 'self' data: https://fonts.gstatic.com;
-      "
-    />
+    <!-- CSP: restrict fetch/XHR to api.anthropic.com only (prevents API key exfiltration) -->
+    <meta http-equiv="Content-Security-Policy" content="connect-src 'self' https://api.anthropic.com;">
   </head>
   <body>
     <div id="root"></div>
