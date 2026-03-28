@@ -1,6 +1,6 @@
 # MATLAB Grader Problem Generator
 
-AI-assisted MATLAB Grader problem authoring tool by [VeriQAI](https://www.linkedin.com/company/veriqai).
+AI-assisted MATLAB Grader problem authoring tool by [VeriQAI](https://github.com/VeriQAi).
 
 > **MATLAB and MATLAB Grader are trademarks of The MathWorks, Inc.
 > This tool is not affiliated with or endorsed by MathWorks.**
@@ -11,12 +11,12 @@ AI-assisted MATLAB Grader problem authoring tool by [VeriQAI](https://www.linked
 
 ### Option A — Deployed app (recommended)
 
-Open [https://andreknoesen.github.io/MatlabGraderProblemGenerator/](https://andreknoesen.github.io/MatlabGraderProblemGenerator/) in Chrome or Edge.
+Open [https://veriqai.github.io/MatlabGraderProblemGenerator/](https://veriqai.github.io/MatlabGraderProblemGenerator/) in Chrome or Edge.
 
 ### Option B — Run locally
 
 ```bash
-git clone https://github.com/AndreKnoesen/MatlabGraderProblemGenerator.git
+git clone https://github.com/VeriQAi/MatlabGraderProblemGenerator.git
 cd MatlabGraderProblemGenerator
 npm install
 npm run dev

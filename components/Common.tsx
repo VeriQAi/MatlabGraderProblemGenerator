@@ -16,7 +16,7 @@ export const Header: React.FC = () => (
         </p>
       </div>
       <a
-        href="https://www.linkedin.com/company/veriqai"
+        href="https://github.com/VeriQAi"
         target="_blank"
         rel="noopener noreferrer"
         className="flex-shrink-0 ml-4 mt-0.5"
@@ -38,7 +38,7 @@ export const Footer: React.FC = () => (
         <span>© VeriQAI — MIT License</span>
         <span>v1.0.0</span>
         <a
-          href="https://github.com/AndreKnoesen/MatlabGraderProblemGenerator"
+          href="https://github.com/VeriQAi/MatlabGraderProblemGenerator"
           target="_blank"
           rel="noopener noreferrer"
           className="text-brand-accent hover:underline"
