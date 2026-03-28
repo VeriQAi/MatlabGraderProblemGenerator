@@ -27,8 +27,8 @@ npm run dev
 
 ## Workflow
 
-1. Enter your Anthropic API key — **create a dedicated key with a spending limit** at
-   [console.anthropic.com](https://console.anthropic.com) before use.
+1. Enter your Anthropic API key — sign up, purchase API credits, and create a dedicated key
+   with a spending limit at [console.anthropic.com](https://console.anthropic.com) before use.
 2. Select a Claude model (Sonnet 4.6 recommended).
 3. Enter a learning objective and choose **Script** or **Function** problem type.
 4. Accept the usage conditions.
