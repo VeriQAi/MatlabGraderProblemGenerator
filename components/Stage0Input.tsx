@@ -41,15 +41,18 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
   const canGenerate = apiKey.trim() !== '' && objective.trim() !== '' && disclosureAccepted;
 
   const ptHelp: Record<ProblemType, string> = {
-    Script:   'Student submits a .m script. Variables are assessed in the workspace.',
-    Function: 'Student submits a .m function. Inputs/outputs are assessed directly.',
-    Class:    'Student submits a classdef .m file. Properties and methods are assessed via instantiation.',
+    Script:         'Student submits a .m script. Variables are assessed in the workspace.',
+    Function:       'Student submits a .m function. Inputs/outputs are assessed directly.',
+    Class:          'Student submits a classdef .m file. Properties and methods are assessed via instantiation.',
+    'Object usage': 'Student writes a script that creates and processes an array of objects. A complete supporting class is generated and provided as a read-only file.',
   };
 
   const CLASS_ASSESSMENTS: { value: ClassAssessment; blankDesc: string }[] = [
     { value: 'Constructor — property assignment', blankDesc: 'Constructor body lines' },
     { value: 'Constructor — computed property',   blankDesc: 'Derived property line only' },
     { value: 'Instance method',                   blankDesc: 'Method body' },
+    { value: 'Constant property',                 blankDesc: 'Value in properties (Constant) block' },
+    { value: 'Operator overloading',              blankDesc: 'Overloaded operator method body' },
   ];
 
   return (
@@ -147,7 +150,7 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
             MATLAB Grader Problem Type
           </legend>
           <div className="flex gap-6">
-            {(['Script', 'Function', 'Class'] as ProblemType[]).map(pt => (
+            {(['Script', 'Function', 'Class', 'Object usage'] as ProblemType[]).map(pt => (
               <label key={pt} className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="radio"

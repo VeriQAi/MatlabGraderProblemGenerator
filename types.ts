@@ -6,11 +6,13 @@ export type Stage =
   | 'review'
   | 'done';
 
-export type ProblemType = 'Script' | 'Function' | 'Class';
+export type ProblemType = 'Script' | 'Function' | 'Class' | 'Object usage';
 export type ClassAssessment =
   | 'Constructor — property assignment'
   | 'Constructor — computed property'
-  | 'Instance method';
+  | 'Instance method'
+  | 'Constant property'
+  | 'Operator overloading';
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
 export type ReviewTab = 'description' | 'solution' | 'template' | 'tests';
 
