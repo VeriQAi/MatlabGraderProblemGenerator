@@ -57,7 +57,7 @@ const App: React.FC = () => {
     problemIdx: number,
     currentState: AppState
   ) => {
-    const { apiKey, model, objective, options, selectedIds } = currentState;
+    const { apiKey, model, objective, options, selectedIds, classAssessment } = currentState;
     const selectedProblems = options.filter(o => selectedIds.includes(o.id));
     const option = selectedProblems[problemIdx];
 
@@ -73,7 +73,7 @@ const App: React.FC = () => {
     try {
       // Step 0 – Description
       const description = await callClaude(
-        buildDescriptionPrompt(option, objective), apiKey, model, addLog
+        buildDescriptionPrompt(option, objective, classAssessment), apiKey, model, addLog
       );
       setState(s => ({ ...s, generatingStep: 1 }));
 
@@ -85,13 +85,13 @@ const App: React.FC = () => {
 
       // Step 2 – Template (needs solution as context)
       const template = await callClaude(
-        buildTemplatePrompt(option, solution), apiKey, model, addLog
+        buildTemplatePrompt(option, solution, classAssessment), apiKey, model, addLog
       );
       setState(s => ({ ...s, generatingStep: 3 }));
 
       // Step 3 – Tests (needs solution as context)
       const tests = await callClaude(
-        buildTestsPrompt(option, solution), apiKey, model, addLog
+        buildTestsPrompt(option, solution, classAssessment), apiKey, model, addLog
       );
 
       const artifacts = { description, solution, template, tests };

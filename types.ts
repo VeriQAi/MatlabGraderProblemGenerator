@@ -6,7 +6,11 @@ export type Stage =
   | 'review'
   | 'done';
 
-export type ProblemType = 'Script' | 'Function';
+export type ProblemType = 'Script' | 'Function' | 'Class';
+export type ClassAssessment =
+  | 'Constructor — property assignment'
+  | 'Constructor — computed property'
+  | 'Instance method';
 export type Difficulty = 'Easy' | 'Medium' | 'Hard';
 export type ReviewTab = 'description' | 'solution' | 'template' | 'tests';
 
@@ -52,6 +56,7 @@ export interface AppState {
   objective: string;
   numOptions: number;
   problemType: ProblemType;
+  classAssessment: ClassAssessment;
   disclosureAccepted: boolean;
   // Stage 1
   options: ProblemOption[];
@@ -74,6 +79,7 @@ export const INITIAL_STATE: AppState = {
   objective: '',
   numOptions: 4,
   problemType: 'Script',
+  classAssessment: 'Constructor — property assignment',
   disclosureAccepted: false,
   options: [],
   selectedIds: [],

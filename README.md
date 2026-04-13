@@ -30,9 +30,11 @@ npm run dev
 1. Enter your Anthropic API key — sign up, purchase API credits, and create a dedicated key
    with a spending limit at [console.anthropic.com](https://console.anthropic.com) before use.
 2. Select a Claude model (Sonnet 4.6 recommended).
-3. Enter a learning objective and choose **Script** or **Function** problem type.
+3. Enter a learning objective and choose a problem type: **Script**, **Function**, or **Class**.
+   - For **Class** problems, also select what is being assessed (constructor property assignment,
+     computed property, or instance method).
 4. Accept the usage conditions.
-5. Click **Generate 5 Problem Options** and select the ones you want to develop.
+5. Click **Generate Problem Options** and select the ones you want to develop.
 6. Each selected problem is developed into 4 artifacts — review each one, then download.
 
 ---
@@ -49,6 +51,20 @@ For each selected problem:
 | `all_tests.m` | Each `% === TEST N ===` section → separate Test Case |
 
 Test cases are written for **R2025b** (double-quoted `assessPattern` strings).
+
+### Class problem specifics
+
+| What is being assessed | What gets blanked in the template |
+|---|---|
+| Constructor — property assignment | Constructor body lines (`obj.prop = arg`) |
+| Constructor — computed property | Derived property line only |
+| Instance method | Method body |
+
+Class solutions are pure `classdef ClassName … end` files (no wrapper functions).
+Descriptions include a full skeleton with only the assessed lines blanked, an analogous-class
+hint, and a "Before you submit" local-testing snippet.
+Test cases use `randperm(19)-10` random values to make swapped property assignments
+always detectable, and follow the pattern: instantiation → properties → methods → `class()` check.
 
 ---
 

@@ -128,6 +128,7 @@ export const ProblemTypeBadge: React.FC<{ type: ProblemType }> = ({ type }) => {
   const styles: Record<ProblemType, string> = {
     Script:   'bg-[#dce6f1] text-[#1F4E79]',
     Function: 'bg-[#e2efda] text-[#375623]',
+    Class:    'bg-[#ede7f6] text-[#4527a0]',
   };
   return (
     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold ${styles[type]}`}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Eye, EyeOff, Info, ShieldAlert } from 'lucide-react';
-import type { AppState, ModelId, ProblemType } from '../types';
+import type { AppState, ClassAssessment, ModelId, ProblemType } from '../types';
 import { MODEL_OPTIONS } from '../types';
 import { Button, Card, SectionLabel } from './Common';
 
@@ -32,7 +32,7 @@ const DISCLOSURE_TEXT = [
 
 const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) => {
   const {
-    apiKey, showApiKey, model, objective, numOptions, problemType, disclosureAccepted,
+    apiKey, showApiKey, model, objective, numOptions, problemType, classAssessment, disclosureAccepted,
   } = state;
 
   const set = <K extends keyof AppState>(key: K, value: AppState[K]) =>
@@ -43,7 +43,14 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
   const ptHelp: Record<ProblemType, string> = {
     Script:   'Student submits a .m script. Variables are assessed in the workspace.',
     Function: 'Student submits a .m function. Inputs/outputs are assessed directly.',
+    Class:    'Student submits a classdef .m file. Properties and methods are assessed via instantiation.',
   };
+
+  const CLASS_ASSESSMENTS: { value: ClassAssessment; blankDesc: string }[] = [
+    { value: 'Constructor — property assignment', blankDesc: 'Constructor body lines' },
+    { value: 'Constructor — computed property',   blankDesc: 'Derived property line only' },
+    { value: 'Instance method',                   blankDesc: 'Method body' },
+  ];
 
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
@@ -140,7 +147,7 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
             MATLAB Grader Problem Type
           </legend>
           <div className="flex gap-6">
-            {(['Script', 'Function'] as ProblemType[]).map(pt => (
+            {(['Script', 'Function', 'Class'] as ProblemType[]).map(pt => (
               <label key={pt} className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="radio"
@@ -155,6 +162,52 @@ const Stage0Input: React.FC<Props> = ({ state, setState, onGenerate, error }) =>
             ))}
           </div>
           <p className="mt-2 text-xs text-gray-500">{ptHelp[problemType]}</p>
+
+          {problemType === 'Class' && (
+            <div className="mt-4 border-t border-gray-100 pt-4">
+              <SectionLabel>What is being assessed?</SectionLabel>
+              <div className="overflow-hidden rounded-md border border-gray-200">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="bg-gray-50 border-b border-gray-200">
+                      <th className="text-left px-3 py-2 font-semibold text-gray-600 w-1/2">Option</th>
+                      <th className="text-left px-3 py-2 font-semibold text-gray-600 w-1/2">What gets blanked in template</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {CLASS_ASSESSMENTS.map(({ value, blankDesc }, i) => (
+                      <tr
+                        key={value}
+                        className={`cursor-pointer transition-colors ${
+                          classAssessment === value
+                            ? 'bg-brand-accent/10 border-l-2 border-brand-accent'
+                            : 'hover:bg-gray-50 border-l-2 border-transparent'
+                        } ${i < CLASS_ASSESSMENTS.length - 1 ? 'border-b border-gray-100' : ''}`}
+                        onClick={() => set('classAssessment', value)}
+                      >
+                        <td className="px-3 py-2.5">
+                          <label className="flex items-center gap-2 cursor-pointer">
+                            <input
+                              type="radio"
+                              name="classAssessment"
+                              value={value}
+                              checked={classAssessment === value}
+                              onChange={() => set('classAssessment', value)}
+                              className="accent-brand-accent flex-shrink-0"
+                            />
+                            <span className={classAssessment === value ? 'font-medium text-brand-dark' : 'text-gray-700'}>
+                              {value}
+                            </span>
+                          </label>
+                        </td>
+                        <td className="px-3 py-2.5 text-gray-500 text-xs">{blankDesc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </fieldset>
 
         <div className="border-t border-gray-100 pt-4">
